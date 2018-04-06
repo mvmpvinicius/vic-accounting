@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="./" target="_blank">
+	<title>Contabilidade</title>
+
+	<!-- Bootstrap -->
+	<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="lib/css/simple-sidebar.css" rel="stylesheet">
+
+	<!-- Handsontable -->
+	<link rel="stylesheet" media="screen" href="lib/css/handsontable.full.min.css">
+
+	<!-- dataTable -->
+	<link rel="stylesheet" media="screen" href="lib/css/datatable.min.css">
+
+	<!-- jsTree -->
+	<link rel="stylesheet" media="screen" href="lib/css/style.min.css">
+
+    <!-- Angular Colorbox -->
+	<link rel="stylesheet" media="screen" href="lib/css/colorbox-darkertheme.css">
+
+	<!-- textAngular -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://textangular.com/css/style.css" type="text/css">
+	<link rel="stylesheet" media="screen" href="lib/css/textAngular.css">
+
+	<!-- AngularRangeSlider -->
+	<link rel="stylesheet" media="screen" href="lib/js/range_slider/angular.rangeSlider.css">
+    <link rel="stylesheet" href="http://textangular.com/css/style.css" type="text/css">
+	
+
+	<!-- MAIN -->
+	<link href="lib/css/main.css" rel="stylesheet">
+	<link href="lib/css/hacks.css" rel="stylesheet">
+
+  </head>
+  <body ng-app="app">
+  	<div ng-controller="appController as appCtrl">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<!--<div class="container"> -->
+				<div>
+					<div class="navbar-header navbar-left">
+						<a href="#"><img class="nav_logo" src="lib/img/logo.png"></a>
+					</div>
+					  <div class="navbar-header navbar-right">
+					  	<div class="profile_box navbar-brand navbar-brand-logo" href="http://www.creative-tim.com">
+								<div class="avatar">
+									<a href=""><img src="lib/img/avatar.png"></a>
+								</div>
+								<div class="avatar_texto">
+									<a href=""><div class="brand">Tomas Marcus</div></a>
+									<div class="undone brand logout"> <span>Logout</span> </div>
+								</div>
+							</a>
+						  </div>
+					  	<div class="divider-vertical"></div>
+						</div>
+					<div class="navbar-header navbar-right">
+					  <ul class="nav navbar-nav">
+							<li>
+								<a ng-click="appCtrl.select_menu('contabilidade')">
+									<span class="done glyphicon icon_menu glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+									<p class="done">Circuito Contábil</p>
+								</a>
+							</li>
+							<li>
+								<a ng-click="appCtrl.select_menu('auditoria')">
+									<span class="undone glyphicon icon_menu glyphicon glyphicon glyphicon-check" aria-hidden="true"></span>
+									<p class="undone">Auditoria</p>
+								</a>
+							</li>
+							<li>
+								<a ng-click="appCtrl.select_menu('planejamento')">
+									<span class="undone glyphicon icon_menu glyphicon glyphicon glyphicon-stats" aria-hidden="true"></span>
+									<p class="undone">Planejamento</p>
+								</a>
+							</li>
+					  </ul>
+					  </div>
+				</div><!-- /.navbar-collapse -->
+			  <!--</div>--><!-- /.container-fluid -->
+		</nav>
+		<div id="wrapper">
+	        <!-- Sidebar -->
+	        <div id="sidebar-wrapper">
+	            <ul ng-show="appCtrl.selected_menu == 'contabilidade'" class="sidebar-nav">
+	                <li class="sidebar-brand">
+	                    <span>Circuito Contábil</span>
+						<span class="icone_sidebar_menu in glyphicon glyphicon-menu-hamburger menu-toggle" aria-hidden="true"></span>
+	                </li>
+	                <li>
+	                    <a class="done" href="#diario">Diário</a>
+	                </li>
+	                <li>
+	                    <a class="done" href="#balancete">Balancete</a>
+	                </li>
+	                 <li>
+	                    <a class="done" href="#sped">Gráfico</a>
+	                </li>
+	                <li>
+	                    <a class="done" href="#folha_trabalho">Folhas de Trabalho</a>
+	                </li>
+	            </ul>
+	            <ul ng-show="appCtrl.selected_menu == 'planejamento'" class="sidebar-nav">
+	                <li class="sidebar-brand">
+	                    <span>Planejamento</span>
+						<span class="icone_sidebar_menu in glyphicon glyphicon-menu-hamburger menu-toggle" aria-hidden="true"></span>
+	                </li>
+	                <li>
+	                    <a href="#diario">Avaliação de Controle Interno</a>
+	                </li>
+	                <li>
+	                    <a href="#auditoria">Composição de Saldo</a>
+	                </li>
+	            </ul>
+	            <ul ng-show="appCtrl.selected_menu == 'auditoria'" class="sidebar-nav">
+	                <li class="sidebar-brand">
+	                    <span>Auditoria</span>
+						<span class="icone_sidebar_menu in glyphicon glyphicon-menu-hamburger menu-toggle" aria-hidden="true"></span>
+	                </li>
+	            </ul>
+	        </div>
+	        <!-- /#sidebar-wrapper -->
+			<span class="icone_sidebar_menu out glyphicon glyphicon-menu-hamburger menu-toggle" aria-hidden="true"></span>
+			<div class="container">
+		        <!-- Page Content -->
+		        <div id="page-content-wrapper">
+		            <div class="container-fluid">
+		                <div class="row">
+		                    <div class="col-lg-12">
+		                    	<div ng-view></div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+	        <!-- /#page-content-wrapper -->
+
+	    </div>
+	    <!-- /#wrapper -->
+	</div>
+	
+	<script src="lib/js/jq.min.js"></script>
+	
+	<script src="lib/js/highchart/highcharts.js"></script>
+
+
+	<!-- Bootstrap -->
+	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Handsontable -->
+	<script src="lib/js/handsontable.full.min.js"></script>
+	<script src="lib/js/ruleJS.all.full.js"></script>
+	<script src="lib/js/handsontable.formula.js"></script>
+	
+	<!-- Export to CSV -->
+	<script src="lib/js/jquery.handsontable.csv.js"></script>
+	
+	<!-- Angular -->
+	<script src="lib/js/angular.js"></script>
+	<script src="lib/js/angular-route.js"></script>
+	<script src="lib/js/angular-resource.js"></script>
+	
+	<!-- textAngular -->
+	<script src="lib/js/textAngular-rangy.min.js"></script>
+	<script src="lib/js/textAngular-sanitize.min.js"></script>
+    <script src="lib/js/textAngular.min.js"></script>
+	
+
+	<!-- LOADER -->
+	<script src="lib/bootstrap-waitingfor/bootstrap-waitingfor.min.js"></script>
+	<!-- dataTable -->
+	<script src="lib/js/jquery.dataTables.min.js"></script>
+	<script src="lib/js/angular-datatables.js"></script>
+
+	<!-- jsTree -->
+	<script src="lib/js/jstree.min.js"></script>
+
+	<!-- Angular Colorbox -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/jquery.colorbox.js'></script>
+	<script src="lib/js/angular-colorbox.js"></script>
+
+	<!-- AngularRangeSlider -->
+	<script src="lib/js/range_slider/angular.rangeSlider.js"></script>
+
+	<script src="templates/app.js"></script>
+
+	<!-- Controlers -->
+	<script src="templates/diario/diario.controller.js"></script>
+	<script src="templates/sped/sped.controller.js"></script>
+	<script src="templates/balancete/balancete.controller.js"></script>
+	<script src="templates/folha_trabalho/folha_trabalho.controller.js"></script>
+
+	<!-- Services -->
+	<script src="templates/services.js"></script>
+	<script src="templates/diario/diario.service.js"></script>
+	<script src="templates/balancete/balancete.service.js"></script>
+	<script src="templates/folha_trabalho/folha_trabalho.service.js"></script>
+
+	<script>
+	$(document).ready(function(){
+		$(".menu-toggle").click(function(e) {
+        	e.preventDefault();
+        	$("#wrapper").toggleClass("toggled");
+        	if($("#wrapper").hasClass("toggled")){}
+   		});
+	});
+	</script>
+  </body>
+</html>

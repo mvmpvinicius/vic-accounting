@@ -1,0 +1,24 @@
+<h3 style="cursor: pointer;" ng-click="folhaTrabalhoCtrl.setTreeVisible()">{{folhaTrabalhoCtrl.titulo}}</h3>
+<div class="row">
+	<div class="col-md-4" ng-show="folhaTrabalhoCtrl.treeVisible">
+		<div id="tree"></div>
+	</div>
+	<div class="col-md-12">
+		<ul class="nav nav-pills">
+			<li ng-repeat="tab in folhaTrabalhoCtrl.tabs" ng-class="{active:folhaTrabalhoCtrl.isSet(tab.id)}"><a class="tabs_folha_trabalho" href ng-click="folhaTrabalhoCtrl.setTab(tab.id)">{{tab.nome | limitTo:15}}<b ng-show="tab.mostra_reticencias">...</b></a></li>
+			<li><a class="tabs_folha_trabalho plus" href ng-click="folhaTrabalhoCtrl.addTab()">+</a></li>
+		</ul>
+		<div ng-repeat="tab in folhaTrabalhoCtrl.tabs" ng-show="folhaTrabalhoCtrl.isSet(tab.id)">
+			<div id="handsontable_{{tab.id}}"></div>
+			<button type="button" class="btn btn-default" ng-click="folhaTrabalhoCtrl.salvar_folha_trabalho(tab.id, tab.nome)">Salvar</button>
+			<button type="button" class="btn btn-default" ng-click="folhaTrabalhoCtrl.exportar_folha_trabalho(tab.id)">Exportar CSV</button>
+		</div>
+	</div>
+</div>
+<div text-angular ng-model="folhaTrabalhoCtrl.textAngular"></div>
+<!-- <div class="row">
+	<div class="col-md-12">
+		<img ng-repeat="image in folhaTrabalhoCtrl.images_folha_trabalho" class="img-group-05" src="rep/images_id_cliente/{{image.thumb}}" href="rep/images_id_cliente/{{image.small}}">
+		<colorbox box-for=".img-group-05" open="zoom05" options="{rel:'img-group-05', slideshow:false, open:false}"></colorbox>
+	</div>
+</div> -->

@@ -1,0 +1,205 @@
+.ui-jqgrid {
+	font-family: "Open Sans", "PT Serif Caption";
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	border:1px #ddd solid;
+}
+
+.ui-widget-header{
+	border: 1px solid #ddd;
+    color:white;
+}
+
+
+ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	color:white;
+	border: 1px solid #ddd;
+	text-shadow: none;
+}
+
+.ui-widget-content{
+	border:1px #ddd solid;
+}
+
+.ui-pg-table td{
+	text-shadow: none !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable th div{
+    top:7px;
+    height:28px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    font-size:12px;
+}
+.ui-jqgrid .ui-jqgrid-htable .ui-search-toolbar div{
+    top:1px;
+    padding: 0px!important;
+}
+
+.ui-icon-triangle-1-s {
+    background-position: -65px -16px;
+}
+.ui-jqgrid .ui-jqgrid-titlebar {
+    padding: .7em .4em .7em .7em;
+    font-size:14px;
+    color:white;
+    border-radius: 0px;
+}
+.ui-jqgrid tr.jqgrow td {
+    /* padding: .4em .6em; */
+    height:30px;
+    padding-left: 5px;
+    border-bottom-style: none;
+}
+
+/* IE8 got no last:child support, those users will see a slight thick right border */
+.ui-jqgrid tr.jqgrow td:last-child {
+    border-right-style: none;
+}
+
+.ui-jqgrid .ui-pg-table td {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    height: 25px;
+}
+
+.ui-jqgrid .ui-jqgrid-pager {
+    height:28px;
+}
+
+/* remove color opacity in alt row */
+.ui-widget-content {
+    color: inherit;
+}
+
+.ui-jqdialog{
+    padding:0em;
+    min-width:450px;
+}
+
+.ui-jqdialog-title {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    padding-left:3px;
+    padding-top:1px;
+}
+
+.ui-jqdialog-titlebar{
+    padding: .5em;
+    border:0px;
+    font-size:13px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.ui-jqdialog-content .EditTable {
+    padding:5px 20px 5px 20px;
+    font-size: 11px;
+}
+
+.ui-jqdialog-content .CaptionTD{
+    text-align: left;
+    padding:0px;
+    text-shadow: 0 1px 0 rgba(212, 228, 233, 0.9)
+}
+
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+    top: 1px;
+}
+
+.ui-jqdialog-content input.FormElement {
+    height: 15px;
+}
+
+.fm-button {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* popup form nav key - fine tuning */
+.ui-icon-triangle-1-e {
+    background-position: -33px -16px;
+}
+
+/* fixing close icon out of position */
+.ui-dialog .ui-dialog-titlebar-close span {
+    margin: inherit;
+}
+.ui-button-icon-only .ui-icon {
+    left: inherit;
+}
+
+.ui-jqgrid-htable th div{
+	text-shadow: none !important;
+	color:white;
+}
+
+.ui-jqgrid-bdiv > div > table td input, ui-jqgrid .ui-jqgrid-view button {
+	/* height: 100% !important; */
+	position:relative;left:-5px;
+	min-height: 25px;	
+}
+.ui-jqgrid-bdiv > div > table td textarea{
+	height: 100% !important;  /* comment out this line for textarea to expand to full height */
+	position: relative;
+	top: 1px;
+	left: -5px;
+	border:#ddd solid 1px;
+}
+.ui-jqgrid-bdiv > div > table td select{
+	width: 105%;
+	height: 100% !important;
+	min-height: 25px !important;
+	background:#fff;
+	-webkit-border-radius:0px;
+    -moz-border-radius:0px;
+    border-radius: 0px;
+	-webkit-appearance:none;outline: 1px inset #ddd; outline-offset:-1px;border: 0;
+	position: relative;
+	left: -5px;
+}
+td.DataTD > div.wysiwyg{
+	width:90% !important;
+}
+td.DataTD > div.wysiwyg iframe{
+	width:100% !important;
+}
+
+
+/* Edit table */
+.ui-jqdialog-content table.EditTable input{
+	width: 90%;
+}
+.ui-jqdialog-content table.EditTable select{
+	width: 97%;
+}
+.ui-jqdialog-content table.EditTable textarea{
+	width:90%;
+}
+
+/* top pager */
+.ui-jqgrid-toppager .ui-pg-table td{
+	padding:0px !important;
+}
+
+td.ui-sgcollapsed.sgcollapsed, td.ui-sgcollapsed.sgexpanded{
+	background: #3A9BFB;	
+}
+
+/* display colored icon during inline edit because this theme has white background */
+div.ui-pg-div.ui-inline-edit > span.ui-icon, 
+div.ui-pg-div.ui-inline-del > span.ui-icon, 
+div.ui-pg-div.ui-inline-save > span.ui-icon,
+div.ui-pg-div.ui-inline-cancel > span.ui-icon,
+.ui-icon.ui-icon-circlesmall-minus.tree-wrap-ltr, .ui-icon.ui-icon-circlesmall-plus.tree-wrap-ltr{
+    background-image: url(images/ui-icons_469bdd_256x240.png);
+}
+
+.ui-jqdialog-title{
+    color:white;
+    text-shadow: none;
+}
+
+body{margin: 0px}

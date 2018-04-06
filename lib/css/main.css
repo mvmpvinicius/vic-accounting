@@ -1,0 +1,86 @@
+body{
+	padding-top: 85px; /* precisa desse padding por causa do menu fixed, referencia no site do bootstrap */
+} 
+
+.icon_menu{
+	font-size: 2.5em;
+	width: 100%;
+	text-align: center;
+}
+.icone_sidebar_menu.out{
+	float: left;
+	left: 0;
+	font-size: 2.6em;
+	color: #000;
+	margin: 0.3em 0.1em 0.1em 0.2em;
+	z-index: 10;
+	position: fixed;
+	top: 85px;
+	cursor: pointer;
+}
+.icone_sidebar_menu.in{
+	font-size: 1.8em;
+	/*color: #FFF;*/
+	color: #666;
+	position: absolute;
+	right: 0.3em;
+	top: 0.4em;
+	cursor: pointer;
+}
+.nav_logo{
+	width: 6em;
+}
+nav .avatar{
+	float: left;
+}
+nav .avatar img{
+	width: 2.3em;
+}
+nav .profile_box{
+	margin-top: 0.4em;
+	margin-right: 0.8em;
+}
+nav .profile_box .avatar_texto{
+	float: right;
+	font-size: 0.8em;
+	margin-left: 0.4em;
+	margin-top: 0.1em;
+}
+
+nav .profile_box .logout{
+	line-height: 0.7em;
+	font-size: 0.7em;
+	text-align: right;
+}
+
+/* CONTAINER */
+
+/*fileTreeINICIO*/
+
+#tree { float:left; min-width:319px; border-right:1px solid silver; overflow:auto; padding:0px 0; }
+#tree .folder { background:url('./file_sprite.png') right bottom no-repeat; }
+#tree .file { background:url('./file_sprite.png') 0 0 no-repeat; }
+#tree .file-pdf { background-position: -32px 0 }
+#tree .file-as { background-position: -36px 0 }
+#tree .file-c { background-position: -72px -0px }
+#tree .file-iso { background-position: -108px -0px }
+#tree .file-htm, #tree .file-html, #tree .file-xml, #tree .file-xsl { background-position: -126px -0px }
+#tree .file-cf { background-position: -162px -0px }
+#tree .file-cpp { background-position: -216px -0px }
+#tree .file-cs { background-position: -236px -0px }
+#tree .file-sql { background-position: -272px -0px }
+#tree .file-xls, #tree .file-xlsx { background-position: -362px -0px }
+#tree .file-h { background-position: -488px -0px }
+#tree .file-crt, #tree .file-pem, #tree .file-cer { background-position: -452px -18px }
+#tree .file-php { background-position: -108px -18px }
+#tree .file-jpg, #tree .file-jpeg, #tree .file-png, #tree .file-gif, #tree .file-bmp { background-position: -126px -18px }
+#tree .file-ppt, #tree .file-pptx { background-position: -144px -18px }
+#tree .file-rb { background-position: -180px -18px }
+#tree .file-text, #tree .file-txt, #tree .file-md, #tree .file-log, #tree .file-htaccess { background-position: -254px -18px }
+#tree .file-doc, #tree .file-docx { background-position: -362px -18px }
+#tree .file-zip, #tree .file-gz, #tree .file-tar, #tree .file-rar { background-position: -416px -18px }
+#tree .file-js { background-position: -434px -18px }
+#tree .file-css { background-position: -144px -0px }
+#tree .file-fla { background-position: -398px -0px }
+
+/*fileTreeFIM*/

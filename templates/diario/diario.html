@@ -1,0 +1,415 @@
+<button class="btn btn-primary" ng-click="diarioCtrl.action = 'list'">Diário</button>
+<button ng-click="diarioCtrl.importar_diario(true)" class="btn btn-warning">Importar diário</button>
+<button ng-click="diarioCtrl.sendData()" class="btn btn-warning">Enviar Seleção</button>
+<!-- <button ng-click="diarioCtrl.sped_import()" class="btn btn-warning">Importar SPED</button> -->
+
+
+<!-- <div>
+	<div>LINHAS SELECIONADAS</div>
+	{{diarioCtrl.selected | json}}
+</div> -->
+
+
+<div ng-show="diarioCtrl.action == 'import'" >
+	<h1>Importar diário</h1>
+	<!-- {{diarioCtrl.answers}} -->
+	<!-- {{diarioCtrl.import_answers}} -->
+	<div ng-show="diarioCtrl.answers == 'question'">
+		<h3>Antes de realizar a importação será necessário que sejam respondidas algumas questões.</h3>
+		<button class="btn btn-primary" ng-click="diarioCtrl.answers = 'question1'">OK, prosseguir</button>
+	</div>
+
+	<!--                     -->
+	<!-- QUESTÕES SOBRE DATA -->
+	<!--                     -->
+
+	<div ng-show="diarioCtrl.answers == 'question1'">
+		<div>Digite abaixo o formato da data do diário:(<i>Use "<b>d</b>" para dia, "<b>m</b>" para mês e "<b>y</b>" para ano.</i>)</div>
+		<div class="form-group col-sm-6">
+			<input type="text" placeholder="Ex.: dd/mm/yyyy, yyyy-mm-dd" ng-model="diarioCtrl.format_date" class="form-control">
+		</div>
+		<div class="clear"></div>
+		<button class="btn btn-primary" ng-click="diarioCtrl.set_answer('question1', '', 'question1.1')">Prosseguir</button>
+	</div>
+	<div ng-show="diarioCtrl.answers == 'question1.1'">
+		<div>A data do lançamento aparece em todas as linhas?</div>
+		<button class="btn btn-primary" ng-click="diarioCtrl.set_answer('question1.1', 'yes', 'question0.1')">Sim</button>
+		<button class="btn btn-primary" ng-click="diarioCtrl.set_answer('question1.1', 'no', 'question1.2')">Não</button>
+	</div>
+
+	<div ng-show="diarioCtrl.answers == 'question1.1.1'">
+		<div>Selecione na linha abaixo onde está o campo <b>data</b> e pressione "OK"? (Será necessário fazer essa ação 3 vezes)</div>
+		<div class="preview_select_line" ng-mouseup="diarioCtrl.selected_text = diarioCtrl.S_fx.get_selection_text()">{{diarioCtrl.table_line}}</div>
+		<div class="preview_answer_question1.1.1">
+			<div ng-repeat="item in diarioCtrl.import_answers['question1.1.1'].selections track by $index">
+				<span>Data linha {{$index + 1}}</span>: <b>{{item}}</b>
+			</div>
+		</div>
+		<button class="btn btn-primary" ng-click="diarioCtrl.select_date_row()">OK!</button>
+		<button class="btn btn-primary" ng-click="diarioCtrl.clear_selection_text()">Apagar seleção</button>
+	</div>
+
+	<div ng-show="diarioCtrl.answers == 'question1.2'">
+		<div>A data do lançamento aparece acima ou abaixo das linhas de registros?</div>
+		<div class="import_diario_holder">
+			<table>
+				<tr>
+					<th width="6%">N° linha</th>
+					<th width="94%">Linha diário</th>
+				</tr>
+				<tr ng-repeat="item in diarioCtrl.preview_import_items track by $index">
+					<td>{{$index + 1}}</td>
+					<td>{{item}}</td>
+				</tr>
+			</table>
+		</div>
+		<button class="btn btn-primary" ng-click="diarioCtrl.set_answer('question1.2', 'above', 'question1.2.1')">Acima</button>
+		<button class="btn btn-primary" ng-click="diarioCtrl.set_answer('question1.2', 'below', 'question1.2.1')">Abaixo</button>
+	</div>
+
+	<div ng-show="diarioCtrl.answers == 'question1.2.1'">
+		<div>Quantas linhas a data está Acima/Abaixo dos registros?</div>
+		<div class="form-group">
+			<input type="text" ng-model="diarioCtrl.line_numbers_date" class="form-control" placeholder="Ex.: 4">
+		</div>
+		<button class="btn btn-primary" ng-click="diarioCtrl.set_answer('question1.2.1', '', 'question2.1')">Enviar</button>
+	</div>
+
+	<div ng-show="diarioCtrl.answers == 'question0.1'">
+		<div>Os dados do diário estão tabelados?(Cada registro possui uma coluna específica)</div>
+		<button class="btn btn-primary" ng-click="diarioCtrl.set_answer('question0.1', 'yes', 'question0.1.1')">Sim</button>
+		<button class="btn btn-primary" ng-click="diarioCtrl.set_answer('question0.1', 'no', 'question1.2')">Não</button>
+	</div>
+
+	<div ng-show="diarioCtrl.answers == 'question0.1.1'">
+		<div>Selecione o tipo abaixo e selecione na tabela a largura da coluna(número de caracteres)</div>
+		<p><i>Campos conta, conta débito, conta crédito, valor, valor débito e valor crédito não são todos preechiveis, caso preencha valor débito e valor crédito, o campo valor ficará vazio</i></p>
+		<!-- <div>Marcar na tabela o campo: <b>{{diarioCtrl.case_table}}</b></div> -->
+		<table class="table table-bordered table_type_fields">
+			<tr>
+				<td><input type="radio" ng-model="diarioCtrl.case_table" value="date"></td>
+				<td><div class="type_color blue"></div></td>
+				<td>Data</td>
+			</tr>
+			<tr>
+				<td><input type="radio" ng-model="diarioCtrl.case_table" value="entry"></td>
+				<td><div class="type_color purple"></div></td>
+				<td>Lançamento</td>
+			</tr>
+			<tr>
+				<td><input type="radio" ng-model="diarioCtrl.case_table" value="account"></td>
+				<td><div class="type_color pink"></div></td>
+				<td>Conta (somente conta)</td>
+
+			</tr>
+			<tr>
+				<td><input type="radio" ng-model="diarioCtrl.case_table" value="debt_account"></td>
+				<td><div class="type_color red"></div></td>
+				<td>Conta débito</td>
+
+			</tr>
+			<tr>
+				<td><input type="radio" ng-model="diarioCtrl.case_table" value="credit_account"></td>
+				<td><div class="type_color orange"></div></td>
+				<td>Conta crédito</td>
+
+			</tr>
+			<tr>
+				<td><input type="radio" ng-model="diarioCtrl.case_table" value="value"></td>
+				<td><div class="type_color yellow"></div></td>
+				<td>Valor (somente valor)</td>
+
+			</tr>
+			<tr>
+				<td><input type="radio" ng-model="diarioCtrl.case_table" value="debt_value"></td>
+				<td><div class="type_color green"></div></td>
+				<td>Valor débito</td>
+
+			</tr>
+			<tr>
+				<td><input type="radio" ng-model="diarioCtrl.case_table" value="credit_value"></td>
+				<td><div class="type_color ocean"></div></td>
+				<td>Valor crédito</td>
+
+			</tr>
+			<tr>
+				<td><input type="radio" ng-model="diarioCtrl.case_table" value="concept"></td>
+				<td><div class="type_color brown"></div></td>
+				<td>Conceito</td>
+			</tr>
+			<tr>
+				<td><input type="radio" ng-model="diarioCtrl.case_table" value="title"></td>
+				<td><div class="type_color soft_red"></div></td>
+				<td>Título</td>
+			</tr>
+			<tr>
+				<td><input type="radio" ng-model="diarioCtrl.case_table" value="doc1"></td>
+				<td><div class="type_color soft_blue"></div></td>	
+				<td>Doc 1</td>
+			</tr>
+			<tr>
+				<td><input type="radio" ng-model="diarioCtrl.case_table" value="doc2"></td>
+				<td><div class="type_color soft_green"></div></td>
+				<td>Doc 2</td>
+			</tr>
+		</table>
+
+		<div class="preview_select_line full">
+			<div class="div_lines">
+				<div range-slider min="0" max="diarioCtrl.max_range_slider" model-min="diarioCtrl.models.min" model-max="diarioCtrl.models.max"></div>
+				<pre ng-repeat="item in diarioCtrl.preview_import_items track by $index">{{item}}<div ng-show="diarioCtrl.case_table == 'date' || diarioCtrl.active_case_table.date == true" class="range_selected type_color date blue"></div><div ng-show="diarioCtrl.case_table == 'entry' || diarioCtrl.active_case_table.entry == true" class="range_selected type_color entry purple"></div><div ng-show="diarioCtrl.case_table == 'account' || diarioCtrl.active_case_table.account == true" class="range_selected type_color account pink"></div><div ng-show="diarioCtrl.case_table == 'debt_account' || diarioCtrl.active_case_table.debt_account == true" class="range_selected type_color debt_account red"></div><div ng-show="diarioCtrl.case_table == 'credit_account' || diarioCtrl.active_case_table.credit_account == true" class="range_selected type_color credit_account orange"></div><div ng-show="diarioCtrl.case_table == 'value' || diarioCtrl.active_case_table.value == true" class="range_selected type_color value yellow"></div><div ng-show="diarioCtrl.case_table == 'debt_value' || diarioCtrl.active_case_table.debt_value == true" class="range_selected type_color debt_value green"></div><div ng-show="diarioCtrl.case_table == 'credit_value' || diarioCtrl.active_case_table.credit_value == true" class="range_selected type_color credit_value ocean"></div><div ng-show="diarioCtrl.case_table == 'concept' || diarioCtrl.active_case_table.concept == true" class="range_selected type_color concept brown"></div><div ng-show="diarioCtrl.case_table == 'title' || diarioCtrl.active_case_table.title == true" class="range_selected type_color title soft_red"></div><div ng-show="diarioCtrl.case_table == 'doc1' || diarioCtrl.active_case_table.doc1 == true" class="range_selected type_color doc1 soft_blue"></div><div ng-show="diarioCtrl.case_table == 'doc2' || diarioCtrl.active_case_table.doc2 == true" class="range_selected type_color doc2 soft_green"></div></pre>
+			</div>
+		</div>
+		<br clear="All">
+		<button class="btn btn-primary" ng-click="diarioCtrl.importar_diario()">Importar!</button>
+		<button class="btn btn-primary" ng-click="diarioCtrl.clear_selection_text()">Recomeçar</button>
+		<button class="btn btn-primary fR disabled" ng-show="diarioCtrl.case_table == ''">Remover seleção atual</button>
+		<button class="btn btn-primary fR" ng-show="diarioCtrl.case_table != ''" ng-click="diarioCtrl.selection_remove()">Remover seleção atual</button>
+
+	</div>
+	<!--                      -->
+	<!-- QUESTÕES SOBRE CONTA -->
+	<!--                      -->
+
+	<div ng-show="diarioCtrl.answers == 'question2.1'">
+		<div>Conta possui somente números(Ou possui "." também?)?</div>
+		<button class="btn btn-primary" ng-click="diarioCtrl.set_answer('question2.1', 'yes', 'question2.1.1')">Possui<b> somente</b> números!</button>
+		<button class="btn btn-primary" ng-click="diarioCtrl.set_answer('question2.1', 'no', 'question2.2')"><b>Não</b> possui somente números!</button>
+	</div>
+
+	<div ng-show="diarioCtrl.answers == 'question2.1.1'">
+		<div>Conta possui sempre o mesmo número de digitos?</div>
+		<button class="btn btn-primary" ng-click="diarioCtrl.set_answer('question2.1.1', 'yes', 'question2.3')">Sim!</button>
+		<button class="btn btn-primary" ng-click="diarioCtrl.set_answer('question2.1.1', 'no', 'question2.1.2')"><b>Não</b> o número de digitos é diferente!</button>
+	</div>
+
+	<div ng-show="diarioCtrl.answers == 'question2.1.2'">
+		<div>Digite abaixo quais são as possibilidade de número de digitos (Para separar cada possibilidade use ##).  </div>
+		<div class="form-group">
+			<input type="text" ng-model="diarioCtrl.digit_cases" class="form-control" placeholder="Ex.: 5##7##12">
+		</div>
+		<button class="btn btn-primary" ng-click="diarioCtrl.set_answer('question2.1.2', '', 'question3.1')">Prosseguir</button>
+	</div>
+
+	<div ng-show="diarioCtrl.answers == 'question2.2'">
+		<div>Digite abaixo quais são as possibilidade de conta (Para separar cada possibilidade use ## "9" para digitos).<i>Caso haja mais de 3 aconselhamos a formatar o seu diário antes de importar</i></div>
+		<div class="form-group">
+			<textarea ng-model="diarioCtrl.account_cases" class="form-control" placeholder="Ex.: 999999##99.999.999.999##99.999.999"></textarea>
+		</div>
+		<button class="btn btn-primary" ng-click="diarioCtrl.set_answer('question2.2', '', 'question3.1')">Prosseguir</button>
+	</div>
+
+	<div ng-show="diarioCtrl.answers == 'question2.3'">
+		<div>Selecione na linha abaixo onde está o campo <b>conta</b> e pressione "OK"? (Será necessário fazer essa ação 3 veze)</div>
+		<div class="preview_select_line" ng-mouseup="diarioCtrl.selected_text = diarioCtrl.S_fx.get_selection_text()">{{diarioCtrl.table_line}}</div>
+		<div class="preview_answer_question2.3">
+			<div ng-repeat="item in diarioCtrl.import_answers['question2.3'].selections track by $index">
+				<span>Data linha {{$index + 1}}</span>: <b>{{item}}</b>
+			</div>
+		</div>
+		<button class="btn btn-primary" ng-click="diarioCtrl.select_date_row()">OK!</button>
+		<button class="btn btn-primary" ng-click="diarioCtrl.clear_selection_text()">Apagar seleção</button>
+	</div>
+
+	<!--                       -->
+	<!-- QUESTÕES SOBRE DÉBITO -->
+	<!--                       -->
+	<div ng-show="diarioCtrl.answers == 'question3.1'">
+		<div>Selecione na linha abaixo onde está o campo <b>débito</b> e pressione "OK"? (Será necessário fazer essa ação 3 veze)</div>
+		<div class="preview_select_line" ng-mouseup="diarioCtrl.selected_text = diarioCtrl.S_fx.get_selection_text()">{{diarioCtrl.table_line}}</div>
+		<div class="preview_answer_question3.1">
+			<div ng-repeat="item in diarioCtrl.import_answers['question3.1'].selections track by $index">
+				<span>Data linha {{$index + 1}}</span>: <b>{{item}}</b>
+			</div>
+		</div>
+		<button class="btn btn-primary" ng-click="diarioCtrl.select_date_row()">OK!</button>
+		<button class="btn btn-primary" ng-click="diarioCtrl.clear_selection_text()">Apagar seleção</button>
+	</div>
+
+	<!--                        -->
+	<!-- QUESTÕES SOBRE CRÉDITO -->
+	<!--                        -->
+	<div ng-show="diarioCtrl.answers == 'question4.1'">
+		<div>Selecione na linha abaixo onde está o campo <b>crédito</b> e pressione "OK"? (Será necessário fazer essa ação mais de uma vez)</div>
+		<div class="preview_select_line" ng-mouseup="diarioCtrl.selected_text = diarioCtrl.S_fx.get_selection_text()">{{diarioCtrl.table_line}}</div>
+		<div class="preview_answer_question4.1">
+			<div ng-repeat="item in diarioCtrl.import_answers['question4.1'].selections track by $index">
+				<span>Conta linha {{$index + 1}}</span>: <b>{{item}}</b>
+			</div>
+		</div>
+		<button class="btn btn-primary" ng-click="diarioCtrl.select_date_row()">OK!</button>
+		<button class="btn btn-primary" ng-click="diarioCtrl.clear_selection_text()">Apagar seleção</button>
+	</div>
+
+	<!--                        -->
+	<!-- SUCESSO                -->
+	<!--                        -->
+	<div ng-show="diarioCtrl.answers == 'question_end'">
+		<div>Veja como ficou suas reposta, confirme ou recomece</div>
+		<!-- <table>
+			<tr>
+				<th>Pergunta</th>
+				<th>Resposta</th>
+			</tr>
+			<tr>
+				<td>A data do lançamento aparece em todas as linhas?</td>
+				<td>{{diarioCtrl.answers[""]}}</td>
+			</tr>
+			<tr>
+				<td>A data do lançamento aparece em todas as linhas?</td>
+				<td>{{diarioCtrl.answers[""]}}</td>
+			</tr>
+			<tr>
+				<td>A data do lançamento aparece em todas as linhas?</td>
+				<td>{{diarioCtrl.answers[""]}}</td>
+			</tr>
+			<tr>
+				<td>A data do lançamento aparece em todas as linhas?</td>
+				<td>{{diarioCtrl.answers[""]}}</td>
+			</tr>
+		</table> -->
+		<button class="btn btn-primary" ng-click="diarioCtrl.importar_diario()">Confirmar!</button>
+		<button class="btn btn-primary" ng-click="diarioCtrl.clear_selection_text()">Recomeçar</button>
+	</div>
+
+
+
+
+
+	<!-- <button class="btn btn-primary" ng-click="diarioCtrl.action = 'list'">Cancelar importação</button>
+
+
+
+	 -->
+</div>
+<div ng-show="diarioCtrl.action == 'list'" class="diario_holder">
+	<h1>{{diarioCtrl.titulo}} - 2014</h1>
+	<div ng-controller="diarioCtrl.ServerSideProcessingCtrl as showCase">
+		<table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+	</div>
+	<!-- <button ng-click="diarioCtrl.action = 'list'" class="btn btn-warning">Cancelar importação</button>
+	<button ng-click="diarioCtrl.sendData()" class="btn btn-warning">Enviar para Folha de Trabalho</button> -->
+</div>
+
+<style>
+.fR{
+	float: right;
+}
+.fL{
+	float: left;
+}
+pre{
+	word-wrap: normal;
+	position: relative;
+	overflow: visible !important;
+}
+
+.import_diario_holder{
+	margin:0;
+	overflow-x:auto;
+	border: 1px solid #CCC;
+}
+.import_diario_holder table{
+	border: none;
+}
+.import_diario_holder table tr{
+	white-space: nowrap;
+	border: 1px solid #CCC;
+}
+.import_diario_holder table tr th{
+	padding: 0.5em;
+}
+.import_diario_holder table tr td{
+	padding: 0.5em;
+	border: 1px solid #CCC;
+}
+
+.preview_select_line{
+	margin: 1em 0;
+	padding: 1em 0.5em;
+	height: 5em;
+	line-height: 2.7em;
+	font-style: italic;
+	color: #aaa;
+	font-size: 0.9em;
+	border: 1px solid #EEE;
+	text-align: left;
+}
+.preview_select_line .ngrs-range-slider{
+	margin: 0 0 0.5em 0;
+}
+.preview_select_line .div_lines{
+	/*overflow-x: auto;
+	overflow-y: auto;*/
+	overflow-x: visible;
+	overflow-y: visible;
+	white-space: nowrap;
+	height: 16.4em;
+	position: relative;
+}
+
+.preview_select_line .div_lines .range_selected{
+	position: absolute;
+    opacity: 0.3;
+    height: 100%;
+    left: 0;
+    right: 0%;
+    top: 0;
+}
+
+.preview_select_line.full{
+	height: 23em;
+	overflow:visible;
+	/*width: 75%;*/
+	float: left;
+}
+
+.table_type_fields{
+	width: 20%;
+	font-size: 0.8em;
+	float: right;
+	margin-top: 1.2em;
+}
+
+.table_type_fields .type_color{
+	padding: 0.5em;
+	margin-top: 0.4em;
+}
+.foreground{
+
+}
+
+.type_color.blue{ background-color: #020092; }
+
+.type_color.purple{ background-color: #AA00FF; }
+
+.type_color.pink{ background-color: #FF0077; }
+
+.type_color.red{ background-color: #FF0000; }
+
+.type_color.orange{ background-color: #FF6600; }
+
+.type_color.yellow{ background-color: #FFC800; }
+
+.type_color.green{ background-color: #327129; }
+
+.type_color.ocean{ background-color: #29716A; }
+
+.type_color.brown{ background-color: #8A6D3B; }
+
+.type_color.soft_green{ background-color: #8BC34A; }
+
+.type_color.soft_blue{ background-color: #00CCFF; }
+
+.type_color.soft_red{ background-color: #FF6C6C; }
+
+
+
+.table_type_fields tr td{
+	margin: 0 auto;
+	padding-top: 0.5em !important;
+	padding-bottom: 0.5em !important;
+	line-height: 1.9em;
+}
+
+</style>
